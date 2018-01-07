@@ -1,0 +1,25 @@
+{
+  "name": "workflow",
+  "version": "1.0.0",
+  "description": "Web Workflow for NPM, Gulp, Sass tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Visserr2/Npm_and_Gulp_and_Sass.git"
+  },
+  "keywords": [
+    "Npm",
+    "Gulp",
+    "Git",
+    "Sass"
+  ],
+  "author": "Ronald Visser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Visserr2/Npm_and_Gulp_and_Sass/issues"
+  },
+  "homepage": "https://github.com/Visserr2/Npm_and_Gulp_and_Sass#readme"
+}
