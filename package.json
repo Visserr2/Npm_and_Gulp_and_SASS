@@ -21,5 +21,9 @@
   "bugs": {
     "url": "https://github.com/Visserr2/Npm_and_Gulp_and_Sass/issues"
   },
-  "homepage": "https://github.com/Visserr2/Npm_and_Gulp_and_Sass#readme"
+  "homepage": "https://github.com/Visserr2/Npm_and_Gulp_and_Sass#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0"
+  }
 }
