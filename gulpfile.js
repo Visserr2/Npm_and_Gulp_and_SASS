@@ -7,7 +7,8 @@ var reload = browsersync.reload;
 var autoprefixer = require('gulp-autoprefixer');
 
 var SOURCEPATHS = {
-  sassSource: 'src/scss/*.scss'
+  sassSource: 'src/scss/*.scss',
+  htmlSource: 'src/*.html'
 }
 
 var APPPATH = {
@@ -28,17 +29,29 @@ gulp.task('sass', function(){
     .pipe(gulp.dest(APPPATH.css));
 })
 
-gulp.task('serv', ['sass'], function(){
+// Browser Sync
+gulp.task('serv', function(){
+  // The paths that should be monitored. If file changes then browser reloads
    browsersync.init([APPPATH.css + '/*.css', APPPATH.root + '/*.html', APPPATH.js + '/*.js'], {
+     // init the server
      server: {
        baseDir: APPPATH.root
      }
    })
 });
 
-gulp.task('watch', ['serv'], function(){
+// Watch changed files in source directory and execute task if that happens
+gulp.task('watch', function(){
+  // The path that should be monitored and the task that should be executed when a file changes in the path.
   gulp.watch([SOURCEPATHS.sassSource], ['sass']);
+  gulp.watch([SOURCEPATHS.htmlSource], ['copy']);
 })
 
-// Create gulp task named default and executes 'sass' task
-gulp.task('default', ['watch']);
+// Copy files from source directory to App directory.
+gulp.task('copy', function() {
+  gulp.src(SOURCEPATHS.htmlSource)
+    .pipe(gulp.dest(APPPATH.root));
+})
+
+// Create gulp task named default and executes multiple tasks
+gulp.task('default', ['sass', 'serv', 'copy', 'watch']);
