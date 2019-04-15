@@ -2,20 +2,21 @@
 // Load the dependencies in variables
 var gulp = require('gulp'); 
 var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
+var clean = require('gulp-clean');
 var browsersync = require('browser-sync');
 var reload = browsersync.reload;
-var autoprefixer = require('gulp-autoprefixer');
 
 var SOURCEPATHS = {
   sassSource: 'src/scss/*.scss',
   htmlSource: 'src/*.html'
-}
+};
 
 var APPPATH = {
   root: 'app',
   css: 'app/css',
   js: 'app/js'
-}
+};
 
 // Create gulp task named Sass
 // Picks up sccs file from 'src/scss/app/scss' and converts it into css file on destination '/app/css'
@@ -27,7 +28,7 @@ gulp.task('sass', function(){
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
     // set file to destination
     .pipe(gulp.dest(APPPATH.css));
-})
+});
 
 // Browser Sync
 gulp.task('serv', function(){
@@ -44,14 +45,22 @@ gulp.task('serv', function(){
 gulp.task('watch', function(){
   // The path that should be monitored and the task that should be executed when a file changes in the path.
   gulp.watch([SOURCEPATHS.sassSource], ['sass']);
-  gulp.watch([SOURCEPATHS.htmlSource], ['copy']);
-})
+  gulp.watch([SOURCEPATHS.htmlSource], ['copy-html']);
+  gulp.watch([SOURCEPATHS.htmlSource], ['clean-html']);
+});
 
-// Copy files from source directory to App directory.
-gulp.task('copy', function() {
+// Copy html-files from source directory to App directory.
+gulp.task('copy-html', function() {
   gulp.src(SOURCEPATHS.htmlSource)
     .pipe(gulp.dest(APPPATH.root));
+});
+
+
+// Delete html files from App directory when they are removed from the source directory.
+gulp.task('clean-html', function(){
+  return gulp.src(APPPATH.root + '/*.html', {read: false, force: true})
+    .pipe(clean());
 })
 
 // Create gulp task named default and executes multiple tasks
-gulp.task('default', ['sass', 'serv', 'copy', 'watch']);
+gulp.task('default', ['sass', 'serv', 'copy-html', 'clean-html', 'watch']);
