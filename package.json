@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Visserr2/Npm_and_Gulp_and_Sass#readme",
   "devDependencies": {
+    "browser-sync": "^2.26.3",
     "gulp": "^3.9.1",
     "gulp-sass": "^3.2.1"
   }

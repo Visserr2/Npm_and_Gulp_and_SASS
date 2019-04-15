@@ -3,5 +3,5 @@
 node_modules/
 app/
 
-\.~lock\.Commands\.odt#
+Documentation/\.~lock\.Commands\.odt#
 package-lock.json
