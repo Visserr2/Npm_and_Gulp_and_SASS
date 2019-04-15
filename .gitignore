@@ -4,3 +4,4 @@ node_modules/
 app/
 
 \.~lock\.Commands\.odt#
+package-lock.json
