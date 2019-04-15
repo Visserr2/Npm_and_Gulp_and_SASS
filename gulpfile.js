@@ -31,5 +31,9 @@ gulp.task('serv', ['sass'], function(){
    })
 });
 
+gulp.task('watch', ['serv'], function(){
+  gulp.watch([SOURCEPATHS.sassSource], ['sass']);
+})
+
 // Create gulp task named default and executes 'sass' task
-gulp.task('default', ['serv']);
+gulp.task('default', ['watch']);
