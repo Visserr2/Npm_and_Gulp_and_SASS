@@ -6,6 +6,7 @@ var autoprefixer = require('gulp-autoprefixer');
 var clean = require('gulp-clean');
 var concat = require('gulp-concat');
 var browserify = require('gulp-browserify');
+var merge = require('merge-stream');
 var browsersync = require('browser-sync');
 var reload = browsersync.reload;
 
@@ -45,13 +46,21 @@ gulp.task('watch', function(){
 // Create gulp task named Sass
 // Picks up sccs file from 'src/scss/app/scss' and converts it into css file on destination '/app/css'
 gulp.task('copy-sass', function(){
-  return gulp.src(SOURCEPATHS.sassSource)
+  // fetches bootstrap dependency from node_modules
+  var bootstrapCss = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
+  // creates css file from the scss-files
+  var sassFiles = gulp.src(SOURCEPATHS.sassSource)
      // Adding browser prefixed back to 4 versions if necessary
     .pipe(autoprefixer('last 4 versions'))
     // convers scss to css file. See different outputstyles: https://web-design-weekly.com/2014/06/15/different-sass-output-styles/
-    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
+    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError));
+
+    // return merges bootstrap and scss files into 1 app.css file. The order in the app.css is the same order as the variables
+  return merge(bootstrapCss, sassFiles)
+    .pipe(concat('app.css'))
     // set file to destination
     .pipe(gulp.dest(APPPATH.css));
+
 });
 
 // Copy html files from source directory to App directory.
