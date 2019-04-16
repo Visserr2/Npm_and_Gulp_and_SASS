@@ -9,7 +9,8 @@ var reload = browsersync.reload;
 
 var SOURCEPATHS = {
   sassSource: 'src/scss/*.scss',
-  htmlSource: 'src/*.html'
+  htmlSource: 'src/*.html',
+  jsSource: 'src/js/**'
 };
 
 var APPPATH = {
@@ -43,13 +44,15 @@ gulp.task('serv', function(){
 
 // Watch changed files in source directory and execute task if that happens
 gulp.task('watch', function(){
-  // The path that should be monitored and the task that should be executed when a file changes in the path.
+  // The paths that should be monitored and the tasks that should be executed when a file changes in the path.
   gulp.watch([SOURCEPATHS.sassSource], ['sass']);
   gulp.watch([SOURCEPATHS.htmlSource], ['copy-html']);
   gulp.watch([SOURCEPATHS.htmlSource], ['clean-html']);
+  gulp.watch([SOURCEPATHS.jsSource], ['copy-scripts']);
+  gulp.watch([SOURCEPATHS.jsSource], ['clean-scripts']);
 });
 
-// Copy html-files from source directory to App directory.
+// Copy html files from source directory to App directory.
 gulp.task('copy-html', function() {
   gulp.src(SOURCEPATHS.htmlSource)
     .pipe(gulp.dest(APPPATH.root));
@@ -58,9 +61,23 @@ gulp.task('copy-html', function() {
 
 // Delete html files from App directory when they are removed from the source directory.
 gulp.task('clean-html', function(){
+  // Read is false because else the content in the files are also monitored. Force need to be true when deleting files.
   return gulp.src(APPPATH.root + '/*.html', {read: false, force: true})
     .pipe(clean());
 })
 
+// Copy javascript files from source directory to App directory
+gulp.task('copy-scripts', function() {
+  gulp.src(SOURCEPATHS.jsSource)
+    .pipe(gulp.dest(APPPATH.js));
+})
+
+// Delete javascript files from App directory when they are removed from the source directory.
+gulp.task('clean-scripts', function(){
+  // Read is false because else the content in the files are also monitored. Force need to be true when deleting files.
+  return gulp.src(APPPATH.js + '/*.js', {read: false, force: true})
+    .pipe(clean());
+})
+
 // Create gulp task named default and executes multiple tasks
-gulp.task('default', ['sass', 'serv', 'copy-html', 'clean-html', 'watch']);
+gulp.task('default', ['sass', 'serv', 'copy-html', 'clean-html', 'copy-scripts', 'clean-scripts', 'watch']);
