@@ -5,6 +5,7 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var clean = require('gulp-clean');
 var concat = require('gulp-concat');
+var browserify = require('gulp-browserify');
 var browsersync = require('browser-sync');
 var reload = browsersync.reload;
 
@@ -70,7 +71,9 @@ gulp.task('clean-html', function(){
 // Copy javascript files from source directory to App directory
 gulp.task('copy-scripts', function() {
   gulp.src(SOURCEPATHS.jsSource)
+    // concates all javascript files to one main.js
     .pipe(concat('main.js'))
+    .pipe(browserify())
     .pipe(gulp.dest(APPPATH.js));
 })
 
