@@ -7,19 +7,23 @@ var clean = require('gulp-clean');
 var concat = require('gulp-concat');
 var browserify = require('gulp-browserify');
 var merge = require('merge-stream');
+var newer = require('gulp-newer');
+var imagemin = require('gulp-imagemin');
 var browsersync = require('browser-sync');
 var reload = browsersync.reload;
 
 var SOURCEPATHS = {
   sassSource: 'src/scss/*.scss',
   htmlSource: 'src/*.html',
-  jsSource: 'src/js/**'
+  jsSource: 'src/js/**',
+  imgSource: "src/img/**"
 };
 
 var APPPATH = {
   root: 'app',
   css: 'app/css',
-  js: 'app/js'
+  js: 'app/js',
+  img: 'app/img'
 };
 
 // Browser Sync
@@ -93,5 +97,14 @@ gulp.task('clean-scripts', function(){
     .pipe(clean());
 })
 
+gulp.task('copy-images', function(){
+  return gulp.src(SOURCEPATHS.imgSource)
+          // checks if new images is added
+          .pipe(newer(APPPATH.img))
+          // minifies the images
+          .pipe(imagemin())
+          .pipe(gulp.dest(APPPATH.img));
+});
+
 // Create gulp task named default and executes multiple tasks
-gulp.task('default', ['copy-sass', 'copy-html', 'clean-html', 'copy-scripts', 'clean-scripts', 'watch', 'serv']);
+gulp.task('default', ['copy-sass', 'copy-html', 'clean-html', 'copy-scripts', 'clean-scripts', 'copy-images', 'watch', 'serv']);
