@@ -10,8 +10,10 @@ var merge = require('merge-stream');
 var newer = require('gulp-newer');
 var imagemin = require('gulp-imagemin');
 var injectPartials = require('gulp-inject-partials');
-var browsersync = require('browser-sync');
 var minify = require('gulp-minify');
+var rename = require('gulp-rename');
+var cssmin = require('gulp-cssmin');
+var browsersync = require('browser-sync');
 var reload = browsersync.reload;
 
 var SOURCEPATHS = {
@@ -65,6 +67,10 @@ gulp.task('copy-sass', function(){
     // return merges bootstrap and scss files into 1 app.css file. The order in the app.css is the same order as the variables
   return merge(bootstrapCss, sassFiles)
     .pipe(concat('app.css'))
+    // minify Css
+    .pipe(cssmin())
+    // rename file. Add .min
+    .pipe(rename({suffix:'.min'}))
     // set file to destination
     .pipe(gulp.dest(APPPATH.css));
 
