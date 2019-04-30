@@ -9,18 +9,20 @@ var browserify = require('gulp-browserify');
 var merge = require('merge-stream');
 var newer = require('gulp-newer');
 var imagemin = require('gulp-imagemin');
+var injectPartials = require('gulp-inject-partials');
 var browsersync = require('browser-sync');
 var reload = browsersync.reload;
 
 var SOURCEPATHS = {
   sassSource: 'src/scss/*.scss',
   htmlSource: 'src/*.html',
+  htmlPartialSource: 'src/partial/*.html',
   jsSource: 'src/js/**',
   imgSource: "src/img/**"
 };
 
 var APPPATH = {
-  root: 'app',
+  root: 'app/',
   css: 'app/css',
   js: 'app/js',
   img: 'app/img'
@@ -41,7 +43,7 @@ gulp.task('serv', function(){
 gulp.task('watch', function(){
   // The paths that should be monitored and the tasks that should be executed when a file changes in the path.
   gulp.watch([SOURCEPATHS.sassSource], ['copy-sass']);
-  gulp.watch([SOURCEPATHS.htmlSource], ['copy-html']);
+  gulp.watch([SOURCEPATHS.htmlSource, SOURCEPATHS.htmlPartialSource], ['copy-html']);
   gulp.watch([SOURCEPATHS.htmlSource], ['clean-html']);
   gulp.watch([SOURCEPATHS.jsSource], ['copy-scripts']);
   gulp.watch([SOURCEPATHS.jsSource], ['clean-scripts']);
@@ -69,10 +71,11 @@ gulp.task('copy-sass', function(){
 
 // Copy html files from source directory to App directory.
 gulp.task('copy-html', function() {
-  gulp.src(SOURCEPATHS.htmlSource)
+  return gulp.src(SOURCEPATHS.htmlSource)
+    // Injecting html partials
+    .pipe(injectPartials())
     .pipe(gulp.dest(APPPATH.root));
 });
-
 
 // Delete html files from App directory when they are removed from the source directory.
 gulp.task('clean-html', function(){
