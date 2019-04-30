@@ -13,6 +13,7 @@ var injectPartials = require('gulp-inject-partials');
 var minify = require('gulp-minify');
 var rename = require('gulp-rename');
 var cssmin = require('gulp-cssmin');
+var htmlmin = require('gulp-htmlmin');
 var browsersync = require('browser-sync');
 var reload = browsersync.reload;
 
@@ -81,6 +82,7 @@ gulp.task('copy-html', function() {
   return gulp.src(SOURCEPATHS.htmlSource)
     // Injecting html partials
     .pipe(injectPartials())
+    .pipe(htmlmin({collapseWhitespace:true}))
     .pipe(gulp.dest(APPPATH.root));
 });
 
@@ -121,3 +123,5 @@ gulp.task('copy-images', function(){
 
 // Create gulp task named default and executes multiple tasks
 gulp.task('default', ['copy-sass', 'copy-html', 'clean-html', 'copy-scripts', 'clean-scripts', 'copy-images', 'watch', 'serv']);
+
+gulp.task('production', ['copy-sass', 'copy-html', 'copy-scripts', 'copy-images']);
