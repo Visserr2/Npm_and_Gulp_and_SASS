@@ -11,6 +11,7 @@ var newer = require('gulp-newer');
 var imagemin = require('gulp-imagemin');
 var injectPartials = require('gulp-inject-partials');
 var browsersync = require('browser-sync');
+var minify = require('gulp-minify');
 var reload = browsersync.reload;
 
 var SOURCEPATHS = {
@@ -89,7 +90,10 @@ gulp.task('copy-scripts', function() {
   gulp.src(SOURCEPATHS.jsSource)
     // concates all javascript files to one main.js
     .pipe(concat('main.js'))
+    // use require-method in javascript files
     .pipe(browserify())
+    // Minify javascript file
+    .pipe(minify())
     .pipe(gulp.dest(APPPATH.js));
 })
 
