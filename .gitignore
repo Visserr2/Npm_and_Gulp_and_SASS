@@ -1,7 +1,7 @@
-.sass-cache/
-*.css.map
-node_modules/
-app/
+workflow/.sass-cache/
+workflow/*.css.map
+workflow/node_modules/
+workflow/app/
 
-Documentation/\.~lock\.Commands\.odt#
-package-lock.json
+workflow/Documentation/\.~lock\.Commands\.odt#
+workflow/package-lock.json
