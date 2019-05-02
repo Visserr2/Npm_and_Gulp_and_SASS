@@ -1,0 +1,46 @@
+{
+  "name": "workflow",
+  "version": "1.0.0",
+  "description": "Web Workflow for NPM, Gulp, Sass tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Visserr2/Npm_and_Gulp_and_Sass.git"
+  },
+  "keywords": [
+    "Npm",
+    "Gulp",
+    "Git",
+    "Sass"
+  ],
+  "author": "Ronald Visser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Visserr2/Npm_and_Gulp_and_Sass/issues"
+  },
+  "homepage": "https://github.com/Visserr2/Npm_and_Gulp_and_Sass#readme",
+  "devDependencies": {
+    "bootstrap": "^4.3.1",
+    "browser-sync": "^2.26.3",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-inject-partials": "^1.0.5",
+    "gulp-minify": "^3.1.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^3.2.1",
+    "jquery": "^3.4.0",
+    "merge-stream": "^1.0.1",
+    "mustache": "^3.0.1",
+    "popper.js": "^1.15.0"
+  }
+}

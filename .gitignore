@@ -5,3 +5,10 @@ workflow/app/
 
 workflow/Documentation/\.~lock\.Commands\.odt#
 workflow/package-lock.json
+
+visitlonden/.sass-cache/
+visitlonden/*.css.map
+visitlonden/node_modules/
+visitlonden/app/
+
+visitlonden/package-lock.json
