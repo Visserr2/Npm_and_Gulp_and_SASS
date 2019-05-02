@@ -62,10 +62,10 @@ gulp.task('copy-sass', function(){
   var bootstrapCss = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
   // creates css file from the scss-files
   var sassFiles = gulp.src(SOURCEPATHS.sassSource)
-     // Adding browser prefixed back to 4 versions if necessary
-    .pipe(autoprefixer('last 4 versions'))
     // convers scss to css file. See different outputstyles: https://web-design-weekly.com/2014/06/15/different-sass-output-styles/
-    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError));
+    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
+    // Adding browser prefixed back to 4 versions if necessary
+    .pipe(autoprefixer('last 4 versions'));
 
     // return merges bootstrap and scss files into 1 app.css file. The order in the app.css is the same order as the variables
   return merge(bootstrapCss, sassFiles)
@@ -123,15 +123,14 @@ gulp.task('default', ['watch', 'serv', 'copy-sass', 'copy-html', 'clean-html', '
 gulp.task('copy-sass-prd', function(){
   var bootstrapCss = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
   var sassFiles = gulp.src(SOURCEPATHS.sassSource)
-    .pipe(autoprefixer('last 4 versions'))
-    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError));
+    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
+    .pipe(autoprefixer('last 4 versions'));
 
   return merge(bootstrapCss, sassFiles)
     .pipe(concat('app.css'))
     // minify Css and rename file. Add .min 
     .pipe(cssmin()).pipe(rename({suffix:'.min'}))
     .pipe(gulp.dest(APPPATH.css));
-
 });
 
 // Copy javascript files from source directory to App directory
