@@ -11,12 +11,14 @@ $bg-color: $blue;
 $text-color: $black;
 
 $paragraph-font-size: 1.4rem;
+$paragraph-font-family: 'Open Sans', sans-serif;
 
 $nav-bg-color: $dark-blue;
 $menu-anchor-font-size: 1.4rem;
 
 $heading-color: $yellow;
-$heading-font-family: 'Arial, Helvetica, sans-sarif';
+$heading-font-family: 'Bitter', serif;
+$heading-font-weight: 700;
 $heading-font-size: (
     h1: 40px,
     h2: 36px,
@@ -42,3 +44,6 @@ $grid-max-width: 1200px;
 
 // buttons
 $btn-font-size: 16px;
+
+// Footer
+$bg-footer: $dark-blue;
