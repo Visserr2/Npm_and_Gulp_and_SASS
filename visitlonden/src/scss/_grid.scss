@@ -1,5 +1,13 @@
 .container {
     margin: 0 auto;
     width: 95%;
-    max-width: $grid-max-width;
+    
+    @include tablet {
+        width: 90%;
+    }
+
+    @include desktop {
+        width: 100%;
+        max-width: $grid-max-width;
+    }
 }
