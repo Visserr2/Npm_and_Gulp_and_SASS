@@ -13,18 +13,25 @@ $text-color: $black;
 $paragraph-font-size: 1.4rem;
 $paragraph-font-family: 'Open Sans', sans-serif;
 
+
+// navigation
 $nav-bg-color: $dark-blue;
 $menu-anchor-font-size: 1.4rem;
 $menu-anchor-hover-color: $yellow;
 $menu-nachor-color: $white;
 
+// cards
+$card-bg-color: $white;
+$card-text-font-size: 1rem;
+
+// headings
 $heading-color: $yellow;
 $heading-font-family: 'Bitter', serif;
 $heading-font-weight: 700;
 $heading-font-size: (
     h1: 40px,
     h2: 36px,
-    h3: 32px,
+    h3: 30px,
     h4: 28px,
     h5: 24px,
     h6: 20px
