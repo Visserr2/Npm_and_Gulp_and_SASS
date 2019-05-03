@@ -48,11 +48,11 @@ gulp.task('serv', function(){
 // Watch changed files in source directory and execute task if that happens
 gulp.task('watch', function(){
   // The paths that should be monitored and the tasks that should be executed when a file changes in the path.
-  gulp.watch([SOURCEPATHS.sassSource], ['copy-sass']);
-  gulp.watch([SOURCEPATHS.htmlSource, SOURCEPATHS.htmlPartialSource], ['copy-html']);
-  gulp.watch([SOURCEPATHS.htmlSource], ['clean-html']);
-  gulp.watch([SOURCEPATHS.jsSource], ['copy-scripts']);
-  gulp.watch([SOURCEPATHS.jsSource], ['clean-scripts']);
+  gulp.watch([SOURCEPATHS.sassSource], gulp.series('copy-sass'));
+  gulp.watch([SOURCEPATHS.htmlSource, SOURCEPATHS.htmlPartialSource], gulp.series('copy-html'));
+  gulp.watch([SOURCEPATHS.htmlSource], gulp.series('clean-html'));
+  gulp.watch([SOURCEPATHS.jsSource], gulp.series('copy-scripts'));
+  gulp.watch([SOURCEPATHS.jsSource], gulp.series('clean-scripts'));
 });
 
 // Create gulp task named Sass
@@ -92,7 +92,7 @@ gulp.task('clean-html', function(){
 
 // Copy javascript files from source directory to App directory
 gulp.task('copy-scripts', function() {
-  gulp.src(SOURCEPATHS.jsSource)
+  return gulp.src(SOURCEPATHS.jsSource)
     // concates all javascript files to one main.js
     .pipe(concat('main.js'))
     // use require-method in javascript files
@@ -109,13 +109,13 @@ gulp.task('clean-scripts', function(){
 
 gulp.task('copy-images', function(){
   return gulp.src(SOURCEPATHS.imgSource)
-      // checks if new images is added
+      // checks if new images is addedBasic settings for BrowserSync include a built-in static server that works for basic HTML/JS/CSS websites (see documentation).
       .pipe(newer(APPPATH.img))
       .pipe(gulp.dest(APPPATH.img));
 });
 
 // Create gulp task named default and executes multiple tasks
-gulp.task('default', ['watch', 'serv', 'copy-sass', 'copy-html', 'clean-html', 'copy-scripts', 'clean-scripts', 'copy-images']);
+gulp.task('default', gulp.series('clean-html', 'clean-scripts', 'copy-sass', 'copy-html', 'copy-scripts', 'copy-images', gulp.parallel('serv', 'watch')));
 
 // **************** PRODUCTION PROCESSES ***************** //
 
@@ -135,7 +135,7 @@ gulp.task('copy-sass-prd', function(){
 
 // Copy javascript files from source directory to App directory
 gulp.task('copy-scripts-prd', function() {
-  gulp.src(SOURCEPATHS.jsSource)
+  return gulp.src(SOURCEPATHS.jsSource)
     .pipe(concat('main.js'))
     .pipe(browserify())
     // Minify javascript file
@@ -160,4 +160,4 @@ gulp.task('copy-images-prd', function(){
       .pipe(gulp.dest(APPPATH.img));
 });
 
-gulp.task('production', ['copy-sass-prd', 'copy-html-prd', 'copy-scripts-prd', 'copy-images-prd']);
+gulp.task('production', gulp.series('copy-sass-prd', 'copy-html-prd', 'copy-scripts-prd', 'copy-images-prd'));
