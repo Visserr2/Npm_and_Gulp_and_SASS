@@ -27,3 +27,7 @@
         clear: both;
     } 
 }
+
+@mixin border-box {
+    box-sizing: border-box;
+}
