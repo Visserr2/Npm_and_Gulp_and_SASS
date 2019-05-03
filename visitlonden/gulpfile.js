@@ -19,6 +19,7 @@ var reload = browsersync.reload;
 
 var SOURCEPATHS = {
   sassSource: 'src/scss/*.scss',
+  sassApp: 'src/scss/app.scss',
   htmlSource: 'src/*.html',
   htmlPartialSource: 'src/partial/*.html',
   jsSource: 'src/js/**',
@@ -61,7 +62,7 @@ gulp.task('copy-sass', function(){
   // fetches bootstrap dependency from node_modules
   var bootstrapCss = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
   // creates css file from the scss-files
-  var sassFiles = gulp.src(SOURCEPATHS.sassSource)
+  var sassFiles = gulp.src(SOURCEPATHS.sassApp)
     // convers scss to css file. See different outputstyles: https://web-design-weekly.com/2014/06/15/different-sass-output-styles/
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
     // Adding browser prefixed back to 4 versions if necessary
