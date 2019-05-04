@@ -43,3 +43,23 @@
     background-size: cover;
     height: $height;
 }
+
+@mixin button($bg-color, $hover-color, $color) {
+    @include border-radius(5px);
+    display: block;
+    background-color: $bg-color;
+    color: $color;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: $btn-font-size;
+    transition: all .3s ease;
+    font-weight: $btn-font-weight;
+    padding: 10px 30px;
+    margin-top: 20px;
+    @include tablet {
+        display: inline-block;
+    }
+    &:hover {
+        background-color: $hover-color;
+    }
+}
