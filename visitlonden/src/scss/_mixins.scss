@@ -63,3 +63,17 @@
         background-color: $hover-color;
     }
 }
+
+@mixin grid-images($quantity, $margin) {
+    width: ((100% - (($quantity - 1) * $margin)) / $quantity);
+
+    &:nth-child(n){
+        margin-right: $margin;
+        margin-bottom: $margin;
+    }
+
+    &:nth-child(#{$quantity}n + 1){
+        margin-bottom: 0;
+        margin-right: 0;
+    }
+}
