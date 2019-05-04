@@ -58,3 +58,14 @@
         }
     }
 }
+
+.footer-navigation {
+    @extend .navigation;
+    .menu {
+        float: left;
+        a {
+            text-transform: uppercase;
+            font-size: 1rem;
+        }
+    }
+}
